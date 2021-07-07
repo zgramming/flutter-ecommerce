@@ -3,20 +3,28 @@ import 'package:flutter_ecommerce_app/main.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavBarWidget extends StatefulWidget {
+  final void Function(int index)? currentIndex;
+
+  const BottomNavBarWidget({
+    Key? key,
+    this.currentIndex,
+  }) : super(key: key);
   @override
   _BottomNavBarWidgetState createState() => _BottomNavBarWidgetState();
 }
 
 class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
+  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    int _selectedIndex = 0;
     void _onItemTapped(int index) {
       setState(() {
         _selectedIndex = index;
-        navigateToScreens(index);
+        print("Selected index $_selectedIndex");
       });
-
+      if (widget.currentIndex != null) {
+        widget.currentIndex!(_selectedIndex);
+      }
     }
 
     return BottomNavigationBar(
@@ -24,31 +32,19 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
-          title: Text(
-            'Home',
-            style: TextStyle(color: Color(0xFF545454)),
-          ),
+          label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.heart),
-          title: Text(
-            'Wish List',
-            style: TextStyle(color: Color(0xFF545454)),
-          ),
+          label: 'Wishlist',
         ),
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.shoppingBag),
-          title: Text(
-            'Cart',
-            style: TextStyle(color: Color(0xFF545454)),
-          ),
+          label: 'Cart',
         ),
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.dashcube),
-          title: Text(
-            'Dashboard',
-            style: TextStyle(color: Color(0xFF545454)),
-          ),
+          label: 'Dashboard',
         ),
       ],
       currentIndex: _selectedIndex,

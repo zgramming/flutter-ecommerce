@@ -6,13 +6,17 @@ import 'package:flutter_ecommerce_app/common_widget/GridTilesCategory.dart';
 import 'package:flutter_ecommerce_app/utils/Urls.dart';
 import 'package:http/http.dart';
 
-List<CategoryModel> categories;
+List<CategoryModel>? categories;
 
 class CategoryPage extends StatefulWidget {
-  String slug;
-  bool isSubList;
+  final String? slug;
+  final bool isSubList;
 
-  CategoryPage({Key key, this.slug, this.isSubList = false}) : super(key: key);
+  CategoryPage({
+    Key? key,
+    this.slug,
+    this.isSubList = false,
+  }) : super(key: key);
 
   @override
   _CategoryPageState createState() => _CategoryPageState();
@@ -44,8 +48,7 @@ class _CategoryPageState extends State<CategoryPage> {
   }
 }
 
-Widget createListView(
-    BuildContext context, AsyncSnapshot snapshot, bool isSubList) {
+Widget createListView(BuildContext context, AsyncSnapshot snapshot, bool isSubList) {
   List<CategoryModel> values = snapshot.data;
   return GridView.count(
     crossAxisCount: 3,
@@ -64,22 +67,21 @@ Widget createListView(
   );
 }
 
-Future<List<CategoryModel>> getCategoryList(String slug, bool isSubList) async {
+Future<List<CategoryModel>?> getCategoryList(String? slug, bool isSubList) async {
   if (isSubList) {
     categories = null;
   }
   if (categories == null) {
     Response response;
-    response = await get(Urls.ROOT_URL + slug);
+    response = await get(Uri.parse(Urls.ROOT_URL + slug!));
     int statusCode = response.statusCode;
     final body = json.decode(response.body);
     if (statusCode == 200) {
-      categories =
-          (body as List).map((i) => CategoryModel.fromJson(i)).toList();
+      categories = (body as List).map((i) => CategoryModel.fromJson(i)).toList();
 
       return categories;
     } else {
-      return categories = List();
+      return categories = [];
     }
   } else {
     return categories;

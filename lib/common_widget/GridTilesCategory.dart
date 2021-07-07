@@ -1,21 +1,20 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/screens/ProductsScreen.dart';
 import 'package:flutter_ecommerce_app/screens/SubCategoryScreen.dart';
 
 class GridTilesCategory extends StatelessWidget {
-  String name;
-  String imageUrl;
-  String slug;
-  bool fromSubProducts = false;
+  final String? name;
+  final String? imageUrl;
+  final String? slug;
+  final bool fromSubProducts;
 
-  GridTilesCategory(
-      {Key key,
-      @required this.name,
-      @required this.imageUrl,
-      @required this.slug,
-      this.fromSubProducts})
-      : super(key: key);
+  GridTilesCategory({
+    Key? key,
+    required this.name,
+    required this.imageUrl,
+    required this.slug,
+    this.fromSubProducts = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class GridTilesCategory extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => ProductsScreen(
-                      slug: "products/?page=1&limit=12&category=" + slug,
+                      slug: "products/?page=1&limit=12&category=" + slug!,
                       name: name,
                     )),
           );
@@ -48,15 +47,13 @@ class GridTilesCategory extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Image.network(
-                  imageUrl,
+                  imageUrl!,
                   width: 100,
                   height: 100,
                 ),
-                Text(name,
+                Text(name!,
                     style: TextStyle(
-                        color: Color(0xFF000000),
-                        fontFamily: 'Roboto-Light.ttf',
-                        fontSize: 12))
+                        color: Color(0xFF000000), fontFamily: 'Roboto-Light.ttf', fontSize: 12))
               ],
             ),
           )),

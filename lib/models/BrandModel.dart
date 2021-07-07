@@ -1,8 +1,8 @@
 class BrandModel {
-  int count;
-  String next;
-  String previous;
-  List<Results> results;
+  int? count;
+  String? next;
+  String? previous;
+  List<Results>? results;
 
   BrandModel({this.count, this.next, this.previous, this.results});
 
@@ -11,9 +11,9 @@ class BrandModel {
     next = json['next'];
     previous = json['previous'];
     if (json['results'] != null) {
-      results = new List<Results>();
+      results = [];
       json['results'].forEach((v) {
-        results.add(new Results.fromJson(v));
+        results!.add(new Results.fromJson(v));
       });
     }
   }
@@ -24,16 +24,16 @@ class BrandModel {
     data['next'] = this.next;
     data['previous'] = this.previous;
     if (this.results != null) {
-      data['results'] = this.results.map((v) => v.toJson()).toList();
+      data['results'] = this.results!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Results {
-  String name;
-  String slug;
-  String imageUrl;
+  String? name;
+  String? slug;
+  String? imageUrl;
 
   Results({this.name, this.slug, this.imageUrl});
 

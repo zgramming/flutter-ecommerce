@@ -1,8 +1,8 @@
 class ProductsModels {
-  int count;
-  String next;
+  int? count;
+  String? next;
   Null previous;
-  List<Results> results;
+  List<Results>? results;
 
   ProductsModels({this.count, this.next, this.previous, this.results});
 
@@ -11,9 +11,9 @@ class ProductsModels {
     next = json['next'];
     previous = json['previous'];
     if (json['results'] != null) {
-      results = new List<Results>();
+      results = [];
       json['results'].forEach((v) {
-        results.add(new Results.fromJson(v));
+        results!.add(new Results.fromJson(v));
       });
     }
   }
@@ -24,20 +24,20 @@ class ProductsModels {
     data['next'] = this.next;
     data['previous'] = this.previous;
     if (this.results != null) {
-      data['results'] = this.results.map((v) => v.toJson()).toList();
+      data['results'] = this.results!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Results {
-  String name;
-  String slug;
-  List<String> imageUrls;
-  String priceType;
-  String maxPrice;
-  String minPrice;
-  String minDiscountedPrice;
+  String? name;
+  String? slug;
+  List<String>? imageUrls;
+  String? priceType;
+  String? maxPrice;
+  String? minPrice;
+  String? minDiscountedPrice;
 
   Results(
       {this.name,

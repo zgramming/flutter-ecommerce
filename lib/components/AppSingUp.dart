@@ -23,11 +23,9 @@ class AppSingUp extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Icon(Icons.close),
-
                   ),
-
                 ),
-                onTap: (){
+                onTap: () {
                   Navigator.pop(context);
                 },
               ),
@@ -54,8 +52,7 @@ class AppSingUp extends StatelessWidget {
                           showCursor: true,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
                               borderSide: BorderSide(
                                 width: 0,
                                 style: BorderStyle.none,
@@ -81,8 +78,7 @@ class AppSingUp extends StatelessWidget {
                           showCursor: true,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderRadius: BorderRadius.all(Radius.circular(10.0)),
                               borderSide: BorderSide(
                                 width: 0,
                                 style: BorderStyle.none,
@@ -185,8 +181,14 @@ class AppSingUp extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    child: RaisedButton(
-                      padding: EdgeInsets.all(17.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(17.0),
+                        primary: Color(0xFFBC1F26),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(15.0),
+                            side: BorderSide(color: Color(0xFFBC1F26))),
+                      ),
                       onPressed: () {},
                       child: Text(
                         "Sign Up",
@@ -197,13 +199,8 @@ class AppSingUp extends StatelessWidget {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      color: Color(0xFFBC1F26),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(15.0),
-                          side: BorderSide(color: Color(0xFFBC1F26))),
                     ),
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
                   ),
                   SizedBox(
                     height: 10,

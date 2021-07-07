@@ -1,7 +1,7 @@
 class CategoryModel {
-  String name;
-  String slug;
-  String imageUrl;
+  String? name;
+  String? slug;
+  String? imageUrl;
 
   CategoryModel({this.name, this.slug, this.imageUrl});
 

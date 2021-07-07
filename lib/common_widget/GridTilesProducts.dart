@@ -1,24 +1,21 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_app/screens/ProductDetailScreen.dart';
-import 'package:flutter_ecommerce_app/screens/ProductsScreen.dart';
-import 'package:flutter_ecommerce_app/screens/SubCategoryScreen.dart';
 
 class GridTilesProducts extends StatelessWidget {
-  String name;
-  String imageUrl;
-  String slug;
-  String price;
-  bool fromSubProducts = false;
+  final String? name;
+  final String imageUrl;
+  final String? slug;
+  final String? price;
+  final bool fromSubProducts;
 
-  GridTilesProducts(
-      {Key key,
-      @required this.name,
-      @required this.imageUrl,
-      @required this.slug,
-      @required this.price,
-      this.fromSubProducts})
-      : super(key: key);
+  GridTilesProducts({
+    Key? key,
+    required this.name,
+    required this.imageUrl,
+    required this.slug,
+    required this.price,
+    this.fromSubProducts = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +43,7 @@ class GridTilesProducts extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => ProductDetailScreen(
-                    slug: "products/" + slug + "/",
+                    slug: "products/" + slug! + "/",
                   )),
         );
       },
@@ -71,8 +68,7 @@ class GridTilesProducts extends StatelessWidget {
                   Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(left: 10, right: 10, top: 15),
-                    child: Text(
-                        (name.length <= 40 ? name : name.substring(0, 40)),
+                    child: Text((name!.length <= 40 ? name! : name!.substring(0, 40)),
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             color: Color(0xFF444444),
@@ -85,9 +81,7 @@ class GridTilesProducts extends StatelessWidget {
                     padding: EdgeInsets.only(left: 10, right: 10, top: 10),
                     child: Text("৳  ${(price != null) ? price : 'Unavailable'}",
                         style: TextStyle(
-                            color: (price != null)
-                                ? Color(0xFFf67426)
-                                : Color(0xFF0dc2cd),
+                            color: (price != null) ? Color(0xFFf67426) : Color(0xFF0dc2cd),
                             fontFamily: 'Roboto-Light.ttf',
                             fontSize: 20,
                             fontWeight: FontWeight.w500)),

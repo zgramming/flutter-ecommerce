@@ -7,12 +7,12 @@ import 'package:flutter_ecommerce_app/models/ProductDetails.dart';
 import 'package:flutter_ecommerce_app/utils/Urls.dart';
 import 'package:http/http.dart';
 
-ProductDetails productDetails;
+ProductDetails? productDetails;
 
 class ProductDetailScreen extends StatefulWidget {
-  String slug;
+  final String slug;
 
-  ProductDetailScreen({Key key, @required this.slug}) : super(key: key);
+  ProductDetailScreen({Key? key, required this.slug}) : super(key: key);
 
   @override
   _ProductDetailScreenState createState() => _ProductDetailScreenState();
@@ -26,7 +26,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFfafafa),
-      appBar: appBarWidget(context),
+      appBar: appBarWidget(context) as PreferredSizeWidget?,
       body: FutureBuilder(
         future: getDetailData(widget.slug),
         builder: (context, AsyncSnapshot snapshot) {
@@ -59,42 +59,43 @@ class BottomNavBar extends StatelessWidget {
             color: Color(0xFF5e5e5e),
           ),
           Spacer(),
-          RaisedButton(
-            elevation: 0,
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10)),
-                side: BorderSide(color: Color(0xFFfef2f2))),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.only(
+                      topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+                  side: BorderSide(color: Color(0xFFfef2f2))),
+              primary: Color(0xFFfef2f2),
+            ),
             onPressed: () {},
-            color: Color(0xFFfef2f2),
-            textColor: Colors.white,
             child: Container(
               padding: EdgeInsets.only(left: 5, right: 5, top: 15, bottom: 15),
               child: Text("Add to cart".toUpperCase(),
                   style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFFff665e))),
+                      fontSize: 14, fontWeight: FontWeight.w400, color: Color(0xFFff665e))),
             ),
           ),
-          RaisedButton(
-            elevation: 0,
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    bottomRight: Radius.circular(10)),
-                side: BorderSide(color: Color(0xFFff665e))),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xFFff665e),
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.only(
+                      topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
+                  side: BorderSide(color: Color(0xFFff665e))),
+              elevation: 0,
+            ),
             onPressed: () {},
-            color: Color(0xFFff665e),
-            textColor: Colors.white,
             child: Container(
               padding: EdgeInsets.only(left: 5, right: 5, top: 15, bottom: 15),
-              child: Text("available at shops".toUpperCase(),
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFFFFFFFF))),
+              child: Text(
+                "available at shops".toUpperCase(),
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFFFFFFFF),
+                ),
+              ),
             ),
           ),
         ],
@@ -104,16 +105,16 @@ class BottomNavBar extends StatelessWidget {
 }
 
 Widget createDetailView(BuildContext context, AsyncSnapshot snapshot) {
-  ProductDetails values = snapshot.data;
+  ProductDetails? values = snapshot.data;
   return DetailScreen(
     productDetails: values,
   );
 }
 
 class DetailScreen extends StatefulWidget {
-  ProductDetails productDetails;
+  final ProductDetails? productDetails;
 
-  DetailScreen({Key key, this.productDetails}) : super(key: key);
+  DetailScreen({Key? key, this.productDetails}) : super(key: key);
 
   @override
   _DetailScreenState createState() => _DetailScreenState();
@@ -127,13 +128,15 @@ class _DetailScreenState extends State<DetailScreen> {
         children: <Widget>[
           /*Image.network(
               widget.productDetails.data.productVariants[0].productImages[0]),*/
-          Image.network( widget.productDetails.data.productVariants[0].productImages[0],fit: BoxFit.fill,
-            loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
+          Image.network(
+            widget.productDetails!.data!.productVariants![0].productImages![0],
+            fit: BoxFit.fill,
+            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
               if (loadingProgress == null) return child;
               return Center(
                 child: CircularProgressIndicator(
-                  value: loadingProgress.expectedTotalBytes != null ?
-                  loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
                       : null,
                 ),
               );
@@ -150,14 +153,10 @@ class _DetailScreenState extends State<DetailScreen> {
               children: <Widget>[
                 Text("SKU".toUpperCase(),
                     style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF565656))),
-                Text(widget.productDetails.data.productVariants[0].sku,
+                        fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF565656))),
+                Text(widget.productDetails!.data!.productVariants![0].sku!,
                     style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFFfd0100))),
+                        fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFFfd0100))),
                 Icon(
                   Icons.arrow_forward_ios,
                   color: Color(0xFF999999),
@@ -176,16 +175,12 @@ class _DetailScreenState extends State<DetailScreen> {
               children: <Widget>[
                 Text("Price".toUpperCase(),
                     style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF565656))),
+                        fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF565656))),
                 Text(
-                    "৳ ${(widget.productDetails.data.productVariants[0].maxPrice != null) ? widget.productDetails.data.productVariants[0].maxPrice : "Unavailable"}"
+                    "৳ ${(widget.productDetails!.data!.productVariants![0].maxPrice != null) ? widget.productDetails!.data!.productVariants![0].maxPrice : "Unavailable"}"
                         .toUpperCase(),
                     style: TextStyle(
-                        color: (widget.productDetails.data.productVariants[0]
-                                    .maxPrice !=
-                                null)
+                        color: (widget.productDetails!.data!.productVariants![0].maxPrice != null)
                             ? Color(0xFFf67426)
                             : Color(0xFF0dc2cd),
                         fontFamily: 'Roboto-Light.ttf',
@@ -208,19 +203,14 @@ class _DetailScreenState extends State<DetailScreen> {
                 Text("Description",
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF565656))),
+                        fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF565656))),
                 SizedBox(
                   height: 15,
                 ),
-                Text(
-                    "${widget.productDetails.data.productVariants[0].productDescription}",
+                Text("${widget.productDetails!.data!.productVariants![0].productDescription}",
                     textAlign: TextAlign.justify,
                     style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF4c4c4c))),
+                        fontSize: 16, fontWeight: FontWeight.w400, color: Color(0xFF4c4c4c))),
               ],
             ),
           ),
@@ -238,9 +228,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 Text("Specification",
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF565656))),
+                        fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF565656))),
                 SizedBox(
                   height: 15,
                 ),
@@ -258,24 +246,30 @@ class _DetailScreenState extends State<DetailScreen> {
   List<Widget> generateProductSpecification(BuildContext context) {
     List<Widget> list = [];
     int count = 0;
-    widget.productDetails.data.productSpecifications.forEach((specification) {
+    widget.productDetails!.data!.productSpecifications!.forEach((specification) {
       Widget element = Container(
         height: 30,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(specification.specificationName,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF444444))),
-            Text(specification.specificationValue,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF212121))),
+            Text(
+              specification.specificationName!,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF444444),
+              ),
+            ),
+            Text(
+              specification.specificationValue!,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF212121),
+              ),
+            ),
           ],
         ),
       );
@@ -286,9 +280,9 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 }
 
-Future<ProductDetails> getDetailData(String slug) async {
+Future<ProductDetails?> getDetailData(String slug) async {
   Response response;
-  response = await get(Urls.ROOT_URL + slug);
+  response = await get(Uri.parse(Urls.ROOT_URL + slug));
   int statusCode = response.statusCode;
   final body = json.decode(response.body);
   if (statusCode == 200) {

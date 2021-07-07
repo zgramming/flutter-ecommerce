@@ -8,13 +8,13 @@ import 'package:flutter_ecommerce_app/models/ShopModel.dart';
 import 'package:flutter_ecommerce_app/utils/Urls.dart';
 import 'package:http/http.dart';
 
-ShopModel shopModel;
+ShopModel? shopModel;
 
 class ShopHomePage extends StatefulWidget {
-  String slug;
-  bool isSubList;
+  final String? slug;
+  final bool isSubList;
 
-  ShopHomePage({Key key, this.slug, this.isSubList=false}) : super(key: key);
+  ShopHomePage({Key? key, this.slug, this.isSubList = false}) : super(key: key);
   @override
   _ShopHomePageState createState() => _ShopHomePageState();
 }
@@ -42,7 +42,7 @@ class _ShopHomePageState extends State<ShopHomePage> {
 
 Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
   ShopModel values = snapshot.data;
-  List<Data> results = values.data;
+  List<Data> results = values.data!;
   return GridView.count(
     crossAxisCount: 3,
     padding: EdgeInsets.all(1.0),
@@ -51,18 +51,18 @@ Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
       return GridTile(
           child: GridTilesCategory(
               name: results[index].shopName,
-              imageUrl: results[index].shopImage,slug:results[index].slug));
+              imageUrl: results[index].shopImage,
+              slug: results[index].slug));
     }),
   );
 }
 
-Future<ShopModel> getCategoryList(String slug, bool isSubList) async {
+Future<ShopModel?> getCategoryList(String? slug, bool isSubList) async {
   if (isSubList) {
     shopModel = null;
   }
   if (shopModel == null) {
-    Response response =
-        await get(Urls.ROOT_URL + slug);
+    Response response = await get(Uri.parse(Urls.ROOT_URL + slug!));
     int statusCode = response.statusCode;
     var body = json.decode(response.body);
     log('${body}');
@@ -71,8 +71,7 @@ Future<ShopModel> getCategoryList(String slug, bool isSubList) async {
 //    brandModel = (body).map((i) =>BrandModel.fromJson(body)) ;
       return shopModel;
     }
-  } else {
-    return shopModel;
   }
+  return shopModel;
 }
 //https://api.evaly.com.bd/core/public/category/shops/bags-luggage-966bc8aac/?page=1&limit=15

@@ -4,11 +4,8 @@ import 'package:flutter_ecommerce_app/common_widget/AppBarWidget.dart';
 import 'package:flutter_ecommerce_app/common_widget/BottomNavBarWidget.dart';
 import 'package:flutter_ecommerce_app/common_widget/DrawerWidget.dart';
 import 'package:flutter_ecommerce_app/screens/HomeScreen.dart';
-import 'package:flutter_ecommerce_app/screens/ProductDetailScreen.dart';
 import 'package:flutter_ecommerce_app/screens/ShoppingCartScreen.dart';
 import 'package:flutter_ecommerce_app/screens/WishListScreen.dart';
-import 'package:flutter_ecommerce_app/components/AppSignIn.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,10 +26,6 @@ class MyApp extends StatelessWidget {
 
 int currentIndex = 0;
 
-void navigateToScreens(int index) {
-  currentIndex = index;
-}
-
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageNewState createState() => _MyHomePageNewState();
@@ -46,18 +39,22 @@ class _MyHomePageNewState extends State<MyHomePage> {
     HomeScreen()
   ];
 
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: appBarWidget(context),
+        appBar: appBarWidget(context) as PreferredSizeWidget?,
         drawer: DrawerWidget(),
         body: IndexedStack(
-          index: currentIndex,
+          index: _currentIndex,
           children: viewContainer,
         ),
-        bottomNavigationBar: BottomNavBarWidget(),
+        bottomNavigationBar: BottomNavBarWidget(
+          currentIndex: (index) => setState(() => _currentIndex = index),
+        ),
       ),
     );
   }

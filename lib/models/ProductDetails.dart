@@ -1,7 +1,7 @@
 class ProductDetails {
-  bool success;
-  String message;
-  Data data;
+  bool? success;
+  String? message;
+  Data? data;
 
   ProductDetails({this.success, this.message, this.data});
 
@@ -16,36 +16,36 @@ class ProductDetails {
     data['success'] = this.success;
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data.toJson();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }
 }
 
 class Data {
-  List<Attributes> attributes;
-  List<ProductVariants> productVariants;
-  List<ProductSpecifications> productSpecifications;
+  List<Attributes>? attributes;
+  List<ProductVariants>? productVariants;
+  List<ProductSpecifications>? productSpecifications;
 
   Data({this.attributes, this.productVariants, this.productSpecifications});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['attributes'] != null) {
-      attributes = new List<Attributes>();
+      attributes = [];
       json['attributes'].forEach((v) {
-        attributes.add(new Attributes.fromJson(v));
+        attributes!.add(new Attributes.fromJson(v));
       });
     }
     if (json['product_variants'] != null) {
-      productVariants = new List<ProductVariants>();
+      productVariants = [];
       json['product_variants'].forEach((v) {
-        productVariants.add(new ProductVariants.fromJson(v));
+        productVariants!.add(new ProductVariants.fromJson(v));
       });
     }
     if (json['product_specifications'] != null) {
-      productSpecifications = new List<ProductSpecifications>();
+      productSpecifications = [];
       json['product_specifications'].forEach((v) {
-        productSpecifications.add(new ProductSpecifications.fromJson(v));
+        productSpecifications!.add(new ProductSpecifications.fromJson(v));
       });
     }
   }
@@ -53,24 +53,22 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.attributes != null) {
-      data['attributes'] = this.attributes.map((v) => v.toJson()).toList();
+      data['attributes'] = this.attributes!.map((v) => v.toJson()).toList();
     }
     if (this.productVariants != null) {
-      data['product_variants'] =
-          this.productVariants.map((v) => v.toJson()).toList();
+      data['product_variants'] = this.productVariants!.map((v) => v.toJson()).toList();
     }
     if (this.productSpecifications != null) {
-      data['product_specifications'] =
-          this.productSpecifications.map((v) => v.toJson()).toList();
+      data['product_specifications'] = this.productSpecifications!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Attributes {
-  String attributeSlug;
-  String attributeName;
-  List<AttributeValues> attributeValues;
+  String? attributeSlug;
+  String? attributeName;
+  List<AttributeValues>? attributeValues;
 
   Attributes({this.attributeSlug, this.attributeName, this.attributeValues});
 
@@ -78,9 +76,9 @@ class Attributes {
     attributeSlug = json['attribute_slug'];
     attributeName = json['attribute_name'];
     if (json['attribute_values'] != null) {
-      attributeValues = new List<AttributeValues>();
+      attributeValues = [];
       json['attribute_values'].forEach((v) {
-        attributeValues.add(new AttributeValues.fromJson(v));
+        attributeValues!.add(new AttributeValues.fromJson(v));
       });
     }
   }
@@ -90,16 +88,15 @@ class Attributes {
     data['attribute_slug'] = this.attributeSlug;
     data['attribute_name'] = this.attributeName;
     if (this.attributeValues != null) {
-      data['attribute_values'] =
-          this.attributeValues.map((v) => v.toJson()).toList();
+      data['attribute_values'] = this.attributeValues!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class AttributeValues {
-  String value;
-  int key;
+  String? value;
+  int? key;
 
   AttributeValues({this.value, this.key});
 
@@ -117,21 +114,21 @@ class AttributeValues {
 }
 
 class ProductVariants {
-  String sku;
-  int variantId;
-  String productName;
-  int approved;
+  String? sku;
+  int? variantId;
+  String? productName;
+  int? approved;
   dynamic minPrice;
   dynamic maxPrice;
-  String productDescription;
-  String brandName;
-  String brandSlug;
-  String categorySlug;
-  int categoryId;
-  String categoryName;
-  List<int> attributeValues;
-  List<String> productImages;
-  String colorImage;
+  String? productDescription;
+  String? brandName;
+  String? brandSlug;
+  String? categorySlug;
+  int? categoryId;
+  String? categoryName;
+  List<int>? attributeValues;
+  List<String>? productImages;
+  String? colorImage;
 
   ProductVariants(
       {this.sku,
@@ -190,12 +187,11 @@ class ProductVariants {
 }
 
 class ProductSpecifications {
-  int id;
-  String specificationName;
-  String specificationValue;
+  int? id;
+  String? specificationName;
+  String? specificationValue;
 
-  ProductSpecifications(
-      {this.id, this.specificationName, this.specificationValue});
+  ProductSpecifications({this.id, this.specificationName, this.specificationValue});
 
   ProductSpecifications.fromJson(Map<String, dynamic> json) {
     id = json['id'];

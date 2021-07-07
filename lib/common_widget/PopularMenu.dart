@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PopularMenu extends StatelessWidget {
-  double width, height = 55.0;
-  double customFontSize = 13;
-  String defaultFontFamily = 'Roboto-Light.ttf';
+  final double width = 55.0, height = 55.0;
+  final double customFontSize = 13;
+  final String defaultFontFamily = 'Roboto-Light.ttf';
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,7 @@ class PopularMenu extends StatelessWidget {
               Container(
                 width: width,
                 height: height,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
                 child: RawMaterialButton(
                   onPressed: () {},
                   shape: CircleBorder(),
@@ -44,8 +43,7 @@ class PopularMenu extends StatelessWidget {
               Container(
                 width: width,
                 height: height,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
                 child: RawMaterialButton(
                   onPressed: () {},
                   shape: CircleBorder(),
@@ -69,8 +67,7 @@ class PopularMenu extends StatelessWidget {
               Container(
                 width: width,
                 height: height,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
                 child: RawMaterialButton(
                   onPressed: () {},
                   shape: CircleBorder(),
@@ -94,8 +91,7 @@ class PopularMenu extends StatelessWidget {
               Container(
                 width: width,
                 height: height,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
                 child: RawMaterialButton(
                   onPressed: () {},
                   shape: CircleBorder(),

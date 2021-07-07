@@ -1,8 +1,8 @@
 class ShopModel {
-  bool success;
-  String message;
-  int count;
-  List<Data> data;
+  bool? success;
+  String? message;
+  int? count;
+  List<Data>? data;
 
   ShopModel({this.success, this.message, this.count, this.data});
 
@@ -11,9 +11,9 @@ class ShopModel {
     message = json['message'];
     count = json['count'];
     if (json['data'] != null) {
-      data = new List<Data>();
+      data = [];
       json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
+        data!.add(new Data.fromJson(v));
       });
     }
   }
@@ -24,27 +24,27 @@ class ShopModel {
     data['message'] = this.message;
     data['count'] = this.count;
     if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Data {
-  String slug;
-  String contactNumber;
-  String shopName;
-  String shopImage;
-  int approval;
-  String ownerName;
+  String? slug;
+  String? contactNumber;
+  String? shopName;
+  String? shopImage;
+  int? approval;
+  String? ownerName;
 
   Data(
       {this.slug,
-        this.contactNumber,
-        this.shopName,
-        this.shopImage,
-        this.approval,
-        this.ownerName});
+      this.contactNumber,
+      this.shopName,
+      this.shopImage,
+      this.approval,
+      this.ownerName});
 
   Data.fromJson(Map<String, dynamic> json) {
     slug = json['slug'];

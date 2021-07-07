@@ -7,16 +7,19 @@ import 'package:flutter_ecommerce_app/common_widget/SearchWidget.dart';
 import 'package:flutter_ecommerce_app/components/ShopHomePage.dart';
 
 class SubCategoryScreen extends StatelessWidget {
-  String slug;
+  final String? slug;
 
-  SubCategoryScreen({Key key, @required this.slug}) : super(key: key);
+  SubCategoryScreen({
+    Key? key,
+    required this.slug,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: appBarWidget(context),
+        appBar: appBarWidget(context) as PreferredSizeWidget?,
         body: SafeArea(
           child: Column(
             children: <Widget>[
@@ -55,20 +58,19 @@ class SubCategoryScreen extends StatelessWidget {
                   children: [
                     Container(
                       color: Colors.white24,
-                      child: CategoryPage(
-                          slug: 'categories/?parent=' + slug, isSubList: true),
+                      child: CategoryPage(slug: 'categories/?parent=' + slug!, isSubList: true),
                     ),
                     Container(
                       color: Colors.white24,
                       child: BrandHomePage(
-                        slug: 'brands/?limit=20&page=1&category=' + slug,
+                        slug: 'brands/?limit=20&page=1&category=' + slug!,
                         isSubList: true,
                       ),
                     ),
                     Container(
                       color: Colors.white24,
                       child: ShopHomePage(
-                        slug: 'category/shops/' + slug + '/?page=1&limit=15',
+                        slug: 'category/shops/' + slug! + '/?page=1&limit=15',
                         isSubList: true,
                       ),
                     ) // class name
